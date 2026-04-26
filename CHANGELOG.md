@@ -9,6 +9,7 @@
 - [#252] Treat `auth_time_from_resource_owner` as optional in `IdToken` — omit `auth_time` claim when unconfigured instead of raising `InvalidConfiguration`
 - [#256] Accept non-callable values (symbol / string) for the `protocol` config option, matching the pattern used by `issuer` / `signing_algorithm` / `signing_key` / `expiration`
 - [#258] Skip `IdToken` construction on password grants without the `openid` scope
+- [#259] Skip `IdToken` construction on authorization code grants without the `openid` scope
 
 ## v1.9.0 (2026-03-16)
 
