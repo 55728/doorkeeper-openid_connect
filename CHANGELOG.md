@@ -11,6 +11,7 @@
 - [#258] Skip `IdToken` construction on password grants without the `openid` scope
 - [#259] Skip `IdToken` construction on authorization code grants without the `openid` scope
 - [#261] Fix obsolete RuboCop configuration (`require:` → `plugins:`, `RSpec/FilePath` split, remove `Capybara/FeatureMethods`)
+- [#263] **Security/Breaking:** Determine dynamically registered client's `confidential` flag from `token_endpoint_auth_method` per RFC 7591 — previously every dynamically registered client was created as public (`confidential: false`), which let callers authenticate with only `client_id` (`by_uid_and_secret(uid, nil)` bypass). Default is now `client_secret_basic` (confidential); `none` produces a public client; unsupported values (e.g. `private_key_jwt`) are rejected with `invalid_client_metadata`. Also derive `token_endpoint_auth_methods_supported` in the response from `Doorkeeper.configuration.client_credentials_methods` instead of a hardcoded list, matching #236
 
 ## v1.9.0 (2026-03-16)
 
