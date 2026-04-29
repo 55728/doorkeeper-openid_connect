@@ -39,19 +39,19 @@ module Doorkeeper
   module OpenidConnect
     def self.signing_algorithm
       algo = if configuration.signing_algorithm.respond_to?(:call)
-        configuration.signing_algorithm.call
-      else
-        configuration.signing_algorithm
-      end
+               configuration.signing_algorithm.call
+             else
+               configuration.signing_algorithm
+             end
       algo.to_s.upcase.to_sym
     end
 
     def self.signing_key
       key_value = if configuration.signing_key.respond_to?(:call)
-        configuration.signing_key.call
-      else
-        configuration.signing_key
-      end
+                    configuration.signing_key.call
+                  else
+                    configuration.signing_key
+                  end
 
       key =
         if %i[HS256 HS384 HS512].include?(signing_algorithm)

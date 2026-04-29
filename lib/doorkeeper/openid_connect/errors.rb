@@ -11,6 +11,7 @@ module Doorkeeper
 
       # internal errors
       class InvalidConfiguration < OpenidConnectError; end
+
       class MissingConfiguration < OpenidConnectError
         def initialize
           super('Configuration for Doorkeeper OpenID Connect missing. Do you have doorkeeper_openid_connect initializer?')

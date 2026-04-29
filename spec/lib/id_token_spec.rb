@@ -43,7 +43,7 @@ describe Doorkeeper::OpenidConnect::IdToken do
         expect(subject.claims[:exp]).to eq(subject.claims[:iat] + expires_in)
       end
     end
-    
+
     context 'when the expiration is a block' do
       subject { described_class.new(access_token, nonce, expires_in) }
 
@@ -146,8 +146,8 @@ describe Doorkeeper::OpenidConnect::IdToken do
         data, headers = ::JWT.decode subject.as_jws_token, Doorkeeper::OpenidConnect.signing_key.keypair, true, { algorithms: algorithms }
 
         expect(data.to_hash).to eq subject.as_json.stringify_keys
-        expect(headers["kid"]).to eq Doorkeeper::OpenidConnect.signing_key.kid
-        expect(headers["alg"]).to eq Doorkeeper::OpenidConnect.signing_algorithm.to_s
+        expect(headers['kid']).to eq Doorkeeper::OpenidConnect.signing_key.kid
+        expect(headers['alg']).to eq Doorkeeper::OpenidConnect.signing_algorithm.to_s
       end
     end
 

@@ -61,7 +61,7 @@ describe Doorkeeper::OpenidConnect::DiscoveryController, type: :controller do
 
     it 'returns the provider configuration with client registration url' do
       Doorkeeper::OpenidConnect.configure do
-        issuer "dummy"
+        issuer 'dummy'
         dynamic_client_registration true
       end
 
@@ -126,13 +126,13 @@ describe Doorkeeper::OpenidConnect::DiscoveryController, type: :controller do
     end
 
     context 'when issuer block' do
-      before { Doorkeeper::OpenidConnect.configure { issuer do |r, a| "test-issuer" end } }
+      before { Doorkeeper::OpenidConnect.configure { issuer { |_r, _a| 'test-issuer' } } }
 
       it 'return blocks result' do
         get :provider
         data = JSON.parse(response.body)
 
-        expect(data['issuer']).to eq "test-issuer"
+        expect(data['issuer']).to eq 'test-issuer'
       end
     end
 
@@ -299,7 +299,7 @@ describe Doorkeeper::OpenidConnect::DiscoveryController, type: :controller do
     context 'when the discovery_url_options option is set for all endpoints' do
       before do
         Doorkeeper::OpenidConnect.configure do
-          discovery_url_options do |request|
+          discovery_url_options do |_request|
             {
               authorization: { host: 'alternate-authorization.host' },
               token: { host: 'alternate-token.host' },
@@ -328,7 +328,7 @@ describe Doorkeeper::OpenidConnect::DiscoveryController, type: :controller do
     context 'when the discovery_url_options option is only set for some endpoints' do
       before do
         Doorkeeper::OpenidConnect.configure do
-          discovery_url_options do |request|
+          discovery_url_options do |_request|
             { authorization: { host: 'alternate-authorization.host' } }
           end
         end
@@ -409,8 +409,10 @@ describe Doorkeeper::OpenidConnect::DiscoveryController, type: :controller do
       expect(data.sort).to eq({
         'subject' => 'user@example.com',
         'links' => [
+          {
           'rel' => 'http://openid.net/specs/connect/1.0/issuer',
-          'href' => 'dummy',
+          'href' => 'dummy'
+          },
         ],
       }.sort)
     end

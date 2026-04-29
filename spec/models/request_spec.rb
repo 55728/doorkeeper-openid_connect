@@ -10,6 +10,7 @@ describe Doorkeeper::OpenidConnect::Request do
       'Doorkeeper::AccessGrant'
     end
   end
+
   describe 'validations' do
     it 'requires an access grant' do
       subject.access_grant_id = nil

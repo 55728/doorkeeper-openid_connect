@@ -60,7 +60,7 @@ Doorkeeper::OpenidConnect.configure do
       user.name
     end
 
-    claim :variable_name, scope: :openid do |user, scopes|
+    claim :variable_name, scope: :openid do |_user, scopes|
       scopes.exists?(:profile) ? 'profile-name' : 'openid-name'
     end
 
@@ -72,7 +72,7 @@ Doorkeeper::OpenidConnect.configure do
       user.updated_at.to_i
     end
 
-    claim :token_id, scope: :openid do |user, scopes, token|
+    claim :token_id, scope: :openid do |_user, _scopes, token|
       token.id
     end
 

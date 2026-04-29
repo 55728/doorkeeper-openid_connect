@@ -24,9 +24,9 @@ module Doorkeeper
       private
 
       def migration_version
-        if ActiveRecord::VERSION::MAJOR >= 5
-          "[#{ActiveRecord::VERSION::MAJOR}.#{ActiveRecord::VERSION::MINOR}]"
-        end
+        return unless ActiveRecord::VERSION::MAJOR >= 5
+
+        "[#{ActiveRecord::VERSION::MAJOR}.#{ActiveRecord::VERSION::MINOR}]"
       end
     end
   end

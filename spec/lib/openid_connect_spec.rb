@@ -131,10 +131,10 @@ describe Doorkeeper::OpenidConnect do
     context 'when signing key is RSA' do
       it 'returns the RSA public key parameters' do
         expect(subject.signing_key_normalized).to eq(
-          :kty => 'RSA',
-          :kid => 'IqYwZo2cE6hsyhs48cU8QHH4GanKIx0S4Dc99kgTIMA',
-          :e => 'AQAB',
-          :n => 'sjdnSA6UWUQQHf6BLIkIEUhMRNBJC1NN_pFt1EJmEiI88GS0ceROO5B5Ooo9Y3QOWJ_n-u1uwTHBz0HCTN4wgArWd1TcqB5GQzQRP4eYnWyPfi4CfeqAHzQp-v4VwbcK0LW4FqtW5D0dtrFtI281FDxLhARzkhU2y7fuYhL8fVw5rUhE8uwvHRZ5CEZyxf7BSHxIvOZAAymhuzNLATt2DGkDInU1BmF75tEtBJAVLzWG_j4LPZh1EpSdfezqaXQlcy9PJi916UzTl0P7Yy-ulOdUsMlB6yo8qKTY1-AbZ5jzneHbGDU_O8QjYvii1WDmJ60t0jXicmOkGrOhruOptw'
+          kty: 'RSA',
+          kid: 'IqYwZo2cE6hsyhs48cU8QHH4GanKIx0S4Dc99kgTIMA',
+          e: 'AQAB',
+          n: 'sjdnSA6UWUQQHf6BLIkIEUhMRNBJC1NN_pFt1EJmEiI88GS0ceROO5B5Ooo9Y3QOWJ_n-u1uwTHBz0HCTN4wgArWd1TcqB5GQzQRP4eYnWyPfi4CfeqAHzQp-v4VwbcK0LW4FqtW5D0dtrFtI281FDxLhARzkhU2y7fuYhL8fVw5rUhE8uwvHRZ5CEZyxf7BSHxIvOZAAymhuzNLATt2DGkDInU1BmF75tEtBJAVLzWG_j4LPZh1EpSdfezqaXQlcy9PJi916UzTl0P7Yy-ulOdUsMlB6yo8qKTY1-AbZ5jzneHbGDU_O8QjYvii1WDmJ60t0jXicmOkGrOhruOptw'
         )
       end
     end
@@ -144,11 +144,11 @@ describe Doorkeeper::OpenidConnect do
 
       it 'returns the EC public key parameters' do
         expect(subject.signing_key_normalized).to eq(
-          :kty => 'EC',
-          :kid => 'dOx_AhaepicN2r2M-sxZhgkYZMCX7dYhPsNOw1ZiFnI',
-          :crv => 'P-521',
-          :x => 'AeYVvbl3zZcFCdE-0msqOowYODjzeXAhjsZKhdNjGlDREvko3UFOw6S43g-s8bvVBmBz3fCodEzFRYQqJVI4UFvF',
-          :y => 'AYJ7GYeBm_Fb6liN53xGASdbRSzF34h4BDSVYzjtQc7I-1LK17fwwS3VfQCJwaT6zX33HTrhR4VoUEUJHKwR3dNs'
+          kty: 'EC',
+          kid: 'dOx_AhaepicN2r2M-sxZhgkYZMCX7dYhPsNOw1ZiFnI',
+          crv: 'P-521',
+          x: 'AeYVvbl3zZcFCdE-0msqOowYODjzeXAhjsZKhdNjGlDREvko3UFOw6S43g-s8bvVBmBz3fCodEzFRYQqJVI4UFvF',
+          y: 'AYJ7GYeBm_Fb6liN53xGASdbRSzF34h4BDSVYzjtQc7I-1LK17fwwS3VfQCJwaT6zX33HTrhR4VoUEUJHKwR3dNs'
         )
       end
     end
@@ -158,8 +158,8 @@ describe Doorkeeper::OpenidConnect do
 
       it 'returns the HMAC public key parameters' do
         expect(subject.signing_key_normalized).to eq(
-          :kty => 'oct',
-          :kid => 'UGyfZX0uOWB46idsQ0QxdFISdaoGilib_t-ZUw8V0Qc'
+          kty: 'oct',
+          kid: 'UGyfZX0uOWB46idsQ0QxdFISdaoGilib_t-ZUw8V0Qc'
         )
       end
     end
@@ -264,7 +264,7 @@ describe Doorkeeper::OpenidConnect do
     context 'when issuer block has arity 3' do
       before do
         Doorkeeper::OpenidConnect.configure do
-          issuer do |resource_owner, application, request|
+          issuer do |resource_owner, _application, request|
             if request
               request.base_url
             else

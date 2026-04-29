@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe Doorkeeper::OpenidConnect::AccessGrant do
   subject { Doorkeeper.config.access_grant_model.new }
+
   let(:openid_request_class_name) { Doorkeeper::OpenidConnect.configuration.open_id_request_class }
   let(:openid_request_class) { Doorkeeper::OpenidConnect.configuration.open_id_request_model }
 
@@ -13,7 +14,7 @@ describe Doorkeeper::OpenidConnect::AccessGrant do
     expect(association.options).to eq({
       class_name: openid_request_class_name,
       inverse_of: :access_grant,
-      foreign_key: "access_grant_id",
+      foreign_key: 'access_grant_id',
       dependent: :delete,
     })
   end

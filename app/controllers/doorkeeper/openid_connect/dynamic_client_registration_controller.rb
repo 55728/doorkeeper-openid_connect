@@ -9,7 +9,7 @@ module Doorkeeper
         client = Doorkeeper::Application.create!(application_params)
         render json: registration_response(client), status: :created
       rescue ActiveRecord::RecordInvalid => e
-        render json: { error: "invalid_client_params", error_description: e.record.errors.full_messages.join(", ") },
+        render json: { error: 'invalid_client_params', error_description: e.record.errors.full_messages.join(', ') },
           status: :bad_request
       end
 
@@ -36,7 +36,7 @@ module Doorkeeper
           response_types: doorkeeper_config.authorization_response_types,
           grant_types: grant_types_supported(doorkeeper_config),
           scope: doorkeeper_application.scopes.to_s,
-          application_type: "web"
+          application_type: 'web'
         }
       end
     end

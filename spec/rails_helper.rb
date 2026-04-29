@@ -30,16 +30,14 @@ Dir.chdir('spec/dummy') do
   ActiveRecord::Migration.maintain_test_schema!
 end
 
-require_relative 'support/doorkeeper_configuration.rb'
+require_relative 'support/doorkeeper_configuration'
 
 require 'factory_bot'
 FactoryBot.find_definitions
 
 RSpec.configure do |config|
   # Backward compatibility: fixture_path was removed in RSpec-Rails 8.x
-  if config.respond_to?(:fixture_path=)
-    config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  end
+  config.fixture_path = "#{Rails.root.join('spec/fixtures')}" if config.respond_to?(:fixture_path=)
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

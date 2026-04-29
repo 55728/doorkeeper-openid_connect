@@ -67,7 +67,7 @@ module Doorkeeper
         def handle_oidc_prompt_param!(owner)
           prompt_values ||= params[:prompt].to_s.split(/ +/).uniq
 
-          priority = ['none', 'consent', 'login', 'select_account']
+          priority = %w[none consent login select_account]
           prompt_values.sort_by! do |prompt|
             priority.find_index(prompt).to_i
           end
@@ -114,9 +114,9 @@ module Doorkeeper
           # NOTE: clock skew
           max_age = [1, max_age].max
 
-          if !auth_time || (Time.zone.now - auth_time) > max_age
-            reauthenticate_oidc_resource_owner(owner)
-          end
+          return unless !auth_time || (Time.zone.now - auth_time) > max_age
+
+          reauthenticate_oidc_resource_owner(owner)
         end
 
         def return_without_oidc_prompt_param(prompt_value)

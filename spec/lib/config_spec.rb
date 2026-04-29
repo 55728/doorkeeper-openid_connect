@@ -208,13 +208,13 @@ describe Doorkeeper::OpenidConnect, 'configuration' do
 
   describe 'discovery_url_options' do
     it 'defaults to empty hash' do
-      expect(subject.discovery_url_options.call).to be_kind_of(Hash)
+      expect(subject.discovery_url_options.call).to be_a(Hash)
       expect(subject.discovery_url_options.call).to be_empty
     end
 
     it 'can be set to other hosts' do
       Doorkeeper::OpenidConnect.configure do
-        discovery_url_options do |request|
+        discovery_url_options do |_request|
           {
             authorization: { host: 'alternate-authorization-host' },
             token: { host: 'alternate-token-host' },

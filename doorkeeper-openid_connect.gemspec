@@ -7,25 +7,26 @@ Gem::Specification.new do |spec|
   spec.name          = 'doorkeeper-openid_connect'
   spec.version       = Doorkeeper::OpenidConnect::VERSION
   spec.authors       = ['Sam Dengler', 'Markus Koller', 'Nikita Bulai']
-  spec.email         = ['sam.dengler@playonsports.com', 'markus-koller@gmx.ch', 'bulajnikita@gmail.com']
+  spec.email         = ['sam.dengler@playonsports.com', 'markus-koller@gmx.ch',
+                        'bulajnikita@gmail.com']
   spec.homepage      = 'https://github.com/doorkeeper-gem/doorkeeper-openid_connect'
   spec.summary       = 'OpenID Connect extension for Doorkeeper.'
   spec.description   = 'OpenID Connect extension for Doorkeeper.'
   spec.license       = 'MIT'
 
   spec.metadata = {
-    "homepage_uri" => "https://github.com/doorkeeper-gem/doorkeeper-openid_connect",
-    "changelog_uri" => "https://github.com/doorkeeper-gem/doorkeeper-openid_connect/blob/master/CHANGELOG.md",
-    "source_code_uri" => "https://github.com/doorkeeper-gem/doorkeeper-openid_connect",
-    "bug_tracker_uri" => "https://github.com/doorkeeper-gem/doorkeeper-openid_connect/issues",
-    "funding_uri" => "https://opencollective.com/doorkeeper-gem",
+    'homepage_uri' => 'https://github.com/doorkeeper-gem/doorkeeper-openid_connect',
+    'changelog_uri' => 'https://github.com/doorkeeper-gem/doorkeeper-openid_connect/blob/master/CHANGELOG.md',
+    'source_code_uri' => 'https://github.com/doorkeeper-gem/doorkeeper-openid_connect',
+    'bug_tracker_uri' => 'https://github.com/doorkeeper-gem/doorkeeper-openid_connect/issues',
+    'funding_uri' => 'https://opencollective.com/doorkeeper-gem',
   }
 
   spec.files = Dir[
-    "{app,config,lib}/**/*",
-    "CHANGELOG.md",
-    "LICENSE.txt",
-    "README.md",
+    '{app,config,lib}/**/*',
+    'CHANGELOG.md',
+    'LICENSE.txt',
+    'README.md',
   ]
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
@@ -33,8 +34,8 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 3.1'
 
   spec.add_runtime_dependency 'doorkeeper', '>= 5.5', '< 6.0'
-  spec.add_runtime_dependency 'ostruct', '>= 0.5'
   spec.add_runtime_dependency 'jwt', '>= 2.5'
+  spec.add_runtime_dependency 'ostruct', '>= 0.5'
 
   spec.add_development_dependency 'bigdecimal'
   spec.add_development_dependency 'conventional-changelog', '~> 1.2'
