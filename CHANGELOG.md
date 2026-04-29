@@ -11,6 +11,7 @@
 - [#258] Skip `IdToken` construction on password grants without the `openid` scope
 - [#259] Skip `IdToken` construction on authorization code grants without the `openid` scope
 - [#261] Fix obsolete RuboCop configuration (`require:` → `plugins:`, `RSpec/FilePath` split, remove `Capybara/FeatureMethods`)
+- [#264] Apply safe RuboCop autocorrections and fix resulting artifacts
 
 ## v1.9.0 (2026-03-16)
 
