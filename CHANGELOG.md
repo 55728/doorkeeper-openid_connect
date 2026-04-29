@@ -10,6 +10,7 @@
 - [#256] Accept non-callable values (symbol / string) for the `protocol` config option, matching the pattern used by `issuer` / `signing_algorithm` / `signing_key` / `expiration`
 - [#258] Skip `IdToken` construction on password grants without the `openid` scope
 - [#259] Skip `IdToken` construction on authorization code grants without the `openid` scope
+- [#261] Fix obsolete RuboCop configuration (`require:` → `plugins:`, `RSpec/FilePath` split, remove `Capybara/FeatureMethods`)
 
 ## v1.9.0 (2026-03-16)
 
