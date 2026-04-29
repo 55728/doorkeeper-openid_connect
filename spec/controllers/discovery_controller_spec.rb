@@ -410,8 +410,8 @@ describe Doorkeeper::OpenidConnect::DiscoveryController, type: :controller do
         'subject' => 'user@example.com',
         'links' => [
           {
-          'rel' => 'http://openid.net/specs/connect/1.0/issuer',
-          'href' => 'dummy'
+            'rel' => 'http://openid.net/specs/connect/1.0/issuer',
+            'href' => 'dummy'
           },
         ],
       }.sort)
