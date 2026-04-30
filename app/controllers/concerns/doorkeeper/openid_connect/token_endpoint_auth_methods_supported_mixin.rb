@@ -8,8 +8,8 @@ module Doorkeeper
         from_params: 'client_secret_post',
       }.freeze
 
-      def token_endpoint_auth_methods_supported(doorkeeper)
-        doorkeeper.client_credentials_methods.filter_map { |method| CLIENT_CREDENTIALS_METHOD_MAPPING[method] }
+      def token_endpoint_auth_methods_supported
+        ::Doorkeeper.config.client_credentials_methods.filter_map { |method| CLIENT_CREDENTIALS_METHOD_MAPPING[method] }
       end
     end
   end

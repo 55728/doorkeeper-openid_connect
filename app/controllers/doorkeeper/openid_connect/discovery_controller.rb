@@ -48,7 +48,7 @@ module Doorkeeper
           # TODO: look into doorkeeper-jwt_assertion for these
           #  'client_secret_jwt',
           #  'private_key_jwt'
-          token_endpoint_auth_methods_supported: token_endpoint_auth_methods_supported(doorkeeper),
+          token_endpoint_auth_methods_supported: token_endpoint_auth_methods_supported,
 
           subject_types_supported: openid_connect.subject_types_supported,
 

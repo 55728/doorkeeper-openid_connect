@@ -46,7 +46,7 @@ module Doorkeeper
       end
 
       def supported_auth_methods
-        token_endpoint_auth_methods_supported(::Doorkeeper.configuration) + [PUBLIC_CLIENT_AUTH_METHOD]
+        token_endpoint_auth_methods_supported + [PUBLIC_CLIENT_AUTH_METHOD]
       end
 
       def registration_response(doorkeeper_application)
@@ -57,7 +57,7 @@ module Doorkeeper
           client_id_issued_at: doorkeeper_application.created_at.to_i,
           redirect_uris: doorkeeper_application.redirect_uri.split,
           token_endpoint_auth_method: requested_auth_method,
-          token_endpoint_auth_methods_supported: token_endpoint_auth_methods_supported(doorkeeper_config),
+          token_endpoint_auth_methods_supported: token_endpoint_auth_methods_supported,
           response_types: doorkeeper_config.authorization_response_types,
           grant_types: grant_types_supported(doorkeeper_config),
           scope: doorkeeper_application.scopes.to_s,
