@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Doorkeeper::OpenidConnect.configure do
-  issuer 'dummy'
+  issuer "dummy"
 
   signing_key <<~EOL
     -----BEGIN RSA PRIVATE KEY-----
@@ -44,11 +44,11 @@ Doorkeeper::OpenidConnect.configure do
   end
 
   reauthenticate_resource_owner do |_resource_owner, _return_to|
-    redirect_to '/reauthenticate'
+    redirect_to "/reauthenticate"
   end
 
   select_account_for_resource_owner do |_resource_owner, _return_to|
-    redirect_to '/select_account'
+    redirect_to "/select_account"
   end
 
   subject do |resource_owner|
@@ -60,8 +60,8 @@ Doorkeeper::OpenidConnect.configure do
       user.name
     end
 
-    claim :variable_name, scope: :openid do |user, scopes|
-      scopes.exists?(:profile) ? 'profile-name' : 'openid-name'
+    claim :variable_name, scope: :openid do |_user, scopes|
+      scopes.exists?(:profile) ? "profile-name" : "openid-name"
     end
 
     claim :created_at, scope: :openid do |user|
@@ -72,12 +72,12 @@ Doorkeeper::OpenidConnect.configure do
       user.updated_at.to_i
     end
 
-    claim :token_id, scope: :openid do |user, scopes, token|
+    claim :token_id, scope: :openid do |_user, _scopes, token|
       token.id
     end
 
-    claim(:both_responses, scope: :openid, response: [:id_token, :user_info]) { 'both' }
-    claim(:id_token_response, scope: :openid, response: [:id_token]) { 'id_token' }
-    claim(:user_info_response, scope: :openid, response: :user_info) { 'user_info' }
+    claim(:both_responses, scope: :openid, response: [:id_token, :user_info]) { "both" }
+    claim(:id_token_response, scope: :openid, response: [:id_token]) { "id_token" }
+    claim(:user_info_response, scope: :openid, response: :user_info) { "user_info" }
   end
 end

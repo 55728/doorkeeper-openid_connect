@@ -35,7 +35,7 @@ module DoorkeeperConfiguration
   end
 
   def configure_hmac
-    configure_doorkeeper('the_greatest_secret_key', :HS512)
+    configure_doorkeeper("the_greatest_secret_key", :HS512)
   end
 end
 

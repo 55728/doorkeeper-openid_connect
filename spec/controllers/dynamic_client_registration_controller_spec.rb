@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :controller do
   let(:redirect_uris) do
     [
-      'https://test.host/registration_success',
-      'https://test.host/registration_success_second_location',
+      "https://test.host/registration_success",
+      "https://test.host/registration_success_second_location",
     ]
   end
 
@@ -36,16 +36,16 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
 
         body = JSON.parse(response.body)
         expect(body).to eq({
-          'client_secret' => doorkeeper_application.plaintext_secret || doorkeeper_application.secret,
-          'client_id' => doorkeeper_application.uid,
-          'client_id_issued_at' => doorkeeper_application.created_at.to_i,
-          'redirect_uris' => redirect_uris,
-          'token_endpoint_auth_method' => 'client_secret_basic',
-          'token_endpoint_auth_methods_supported' => %w[client_secret_basic client_secret_post],
-          'response_types' => ['code', 'token', 'id_token', 'id_token token'],
-          'grant_types' => %w[authorization_code client_credentials implicit_oidc],
-          'scope' => "public",
-          'application_type' => "web",
+          "client_secret" => doorkeeper_application.plaintext_secret || doorkeeper_application.secret,
+          "client_id" => doorkeeper_application.uid,
+          "client_id_issued_at" => doorkeeper_application.created_at.to_i,
+          "redirect_uris" => redirect_uris,
+          "token_endpoint_auth_method" => "client_secret_basic",
+          "token_endpoint_auth_methods_supported" => %w[client_secret_basic client_secret_post],
+          "response_types" => ["code", "token", "id_token", "id_token token"],
+          "grant_types" => %w[authorization_code client_credentials implicit_oidc],
+          "scope" => "public",
+          "application_type" => "web",
         })
       end
     end
@@ -65,8 +65,8 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
         expect(doorkeeper_application.confidential).to be true
 
         body = JSON.parse(response.body)
-        expect(body['token_endpoint_auth_method']).to eq('client_secret_basic')
-        expect(body['client_secret']).to be_present
+        expect(body["token_endpoint_auth_method"]).to eq("client_secret_basic")
+        expect(body["client_secret"]).to be_present
       end
     end
 
@@ -85,8 +85,8 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
         expect(doorkeeper_application.confidential).to be true
 
         body = JSON.parse(response.body)
-        expect(body['token_endpoint_auth_method']).to eq('client_secret_post')
-        expect(body['client_secret']).to be_present
+        expect(body["token_endpoint_auth_method"]).to eq("client_secret_post")
+        expect(body["client_secret"]).to be_present
       end
     end
 
@@ -105,8 +105,8 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
         expect(doorkeeper_application.confidential).to be false
 
         body = JSON.parse(response.body)
-        expect(body['token_endpoint_auth_method']).to eq('none')
-        expect(body).not_to have_key('client_secret')
+        expect(body["token_endpoint_auth_method"]).to eq("none")
+        expect(body).not_to have_key("client_secret")
       end
     end
 
@@ -123,8 +123,8 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
         expect(Doorkeeper::Application.count).to eq(0)
 
         body = JSON.parse(response.body)
-        expect(body['error']).to eq('invalid_client_metadata')
-        expect(body['error_description']).to include('private_key_jwt')
+        expect(body["error"]).to eq("invalid_client_metadata")
+        expect(body["error_description"]).to include("private_key_jwt")
       end
     end
 
@@ -141,8 +141,8 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
         expect(Doorkeeper::Application.count).to eq(0)
 
         body = JSON.parse(response.body)
-        expect(body['error']).to eq('invalid_client_metadata')
-        expect(body['error_description']).to include('unknown_value')
+        expect(body["error"]).to eq("invalid_client_metadata")
+        expect(body["error_description"]).to include("unknown_value")
       end
     end
 
@@ -161,7 +161,7 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
 
         expect(response.status).to eq 201
         body = JSON.parse(response.body)
-        expect(body['token_endpoint_auth_methods_supported']).to eq(%w[client_secret_basic])
+        expect(body["token_endpoint_auth_methods_supported"]).to eq(%w[client_secret_basic])
       end
     end
 
@@ -201,7 +201,7 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
         post :register, params: {
           client_name: "dummy_client",
           redirect_uris: [
-            'http://test.host/registration_success',
+            "http://test.host/registration_success",
           ],
           scope: "openid"
         }
