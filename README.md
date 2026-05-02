@@ -35,8 +35,9 @@ The following parts of [OpenID Connect Core 1.0](http://openid.net/specs/openid-
 - [UserInfo Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
 - [Normal Claims](http://openid.net/specs/openid-connect-core-1_0.html#NormalClaims)
 - [OAuth 2.0 Form Post Response Mode](https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html)
+- [OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591)
 
-In addition we also support most of [OpenID Connect Discovery 1.0](http://openid.net/specs/openid-connect-discovery-1_0.html) for automatic configuration discovery.
+In addition, we also support most of [OpenID Connect Discovery 1.0](http://openid.net/specs/openid-connect-discovery-1_0.html) for automatic configuration discovery.
 
 Take a look at the [DiscoveryController](app/controllers/doorkeeper/openid_connect/discovery_controller.rb) for more details on supported features.
 
@@ -72,7 +73,8 @@ rails generate doorkeeper:openid_connect:migration
 rake db:migrate
 ```
 
-If you're upgrading from an earlier version, check [CHANGELOG.md](CHANGELOG.md) for upgrade instructions.
+If you're upgrading from an earlier version, check [Migration from old versions](https://github.com/doorkeeper-gem/doorkeeper-openid_connect/wiki/Migration%E2%80%90from%E2%80%90old%E2%80%90versions)
+wiki and [CHANGELOG.md](CHANGELOG.md) for upgrade instructions.
 
 ## Configuration
 
@@ -334,7 +336,7 @@ bundle exec rake server
 By default, the latest Rails version is used. To use a specific version run:
 
 ```
-rails=4.2.0 bundle update
+rails=7.2 bundle update
 ```
 
 ## License
