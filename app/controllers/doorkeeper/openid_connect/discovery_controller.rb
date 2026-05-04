@@ -7,7 +7,7 @@ module Doorkeeper
       include GrantTypesSupportedMixin
       include TokenEndpointAuthMethodsSupportedMixin
 
-      WEBFINGER_RELATION = 'http://openid.net/specs/connect/1.0/issuer'
+      WEBFINGER_RELATION = "http://openid.net/specs/connect/1.0/issuer"
 
       def provider
         render json: provider_response
@@ -57,7 +57,7 @@ module Doorkeeper
           ],
 
           claim_types_supported: [
-            'normal',
+            "normal",
 
             # TODO: support these
             # 'aggregated',
@@ -104,7 +104,7 @@ module Doorkeeper
         {
           keys: [
             signing_key.merge(
-              use: 'sig',
+              use: "sig",
               alg: Doorkeeper::OpenidConnect.signing_algorithm
             )
           ]
@@ -130,7 +130,8 @@ module Doorkeeper
         Doorkeeper::OpenidConnect.resolve_issuer(request: request)
       end
 
-      %i[authorization token revocation introspection userinfo jwks dynamic_client_registration].each do |endpoint|
+      %i[authorization token revocation introspection userinfo jwks
+         dynamic_client_registration].each do |endpoint|
         define_method :"#{endpoint}_url_options" do
           discovery_url_default_options.merge(discovery_url_options[endpoint.to_sym] || {})
         end

@@ -6,15 +6,15 @@ module Doorkeeper
       include GrantTypesSupportedMixin
       include TokenEndpointAuthMethodsSupportedMixin
 
-      DEFAULT_TOKEN_ENDPOINT_AUTH_METHOD = 'client_secret_basic'
-      PUBLIC_CLIENT_AUTH_METHOD = 'none'
+      DEFAULT_TOKEN_ENDPOINT_AUTH_METHOD = "client_secret_basic"
+      PUBLIC_CLIENT_AUTH_METHOD = "none"
 
       def register
         unless supported_auth_methods.include?(requested_auth_method)
           render json: {
-            error: 'invalid_client_metadata',
+            error: "invalid_client_metadata",
             error_description: "token_endpoint_auth_method '#{requested_auth_method}' is not supported. " \
-                               "Supported methods: #{supported_auth_methods.join(', ')}",
+                               "Supported methods: #{supported_auth_methods.join(", ")}",
           }, status: :bad_request
           return
         end
@@ -61,11 +61,12 @@ module Doorkeeper
           response_types: doorkeeper_config.authorization_response_types,
           grant_types: grant_types_supported(doorkeeper_config),
           scope: doorkeeper_application.scopes.to_s,
-          application_type: 'web',
+          application_type: "web",
         }
 
         if confidential_client?
-          response[:client_secret] = doorkeeper_application.plaintext_secret || doorkeeper_application.secret
+          response[:client_secret] =
+            doorkeeper_application.plaintext_secret || doorkeeper_application.secret
         end
 
         response

@@ -26,9 +26,9 @@ module Doorkeeper
 
         def oidc_authorization_request?
           controller_path == Doorkeeper::Rails::Routes.mapping[:authorizations][:controllers] &&
-            action_name == 'new' &&
+            action_name == "new" &&
             pre_auth.valid? &&
-            pre_auth.scopes.include?('openid')
+            pre_auth.scopes.include?("openid")
         end
 
         def handle_oidc_error!(exception)
@@ -67,27 +67,27 @@ module Doorkeeper
         def handle_oidc_prompt_param!(owner)
           prompt_values ||= params[:prompt].to_s.split(/ +/).uniq
 
-          priority = ['none', 'consent', 'login', 'select_account']
+          priority = %w[none consent login select_account]
           prompt_values.sort_by! do |prompt|
             priority.find_index(prompt).to_i
           end
 
           prompt_values.each do |prompt|
             case prompt
-            when 'none'
-              raise Errors::InvalidRequest if (prompt_values - ['none']).any?
+            when "none"
+              raise Errors::InvalidRequest if (prompt_values - ["none"]).any?
               raise Errors::LoginRequired unless owner
               raise Errors::ConsentRequired if oidc_consent_required?
-            when 'login'
+            when "login"
               reauthenticate_oidc_resource_owner(owner) if owner
-            when 'consent'
+            when "consent"
               if owner
                 clear_oidc_response
                 render :new
               end
-            when 'select_account'
+            when "select_account"
               select_account_for_oidc_resource_owner(owner)
-            when 'create'
+            when "create"
               # NOTE: not supported, but not raise error.
             else
               raise Errors::InvalidRequest
@@ -97,7 +97,7 @@ module Doorkeeper
 
         def handle_oidc_max_age_param!(owner)
           max_age = params[:max_age].to_i
-          return unless (params[:max_age].to_s == '0' || max_age > 0) && owner
+          return unless (params[:max_age].to_s == "0" || max_age > 0) && owner
 
           auth_time = instance_exec(
             owner,
@@ -114,16 +114,16 @@ module Doorkeeper
           # NOTE: clock skew
           max_age = [1, max_age].max
 
-          if !auth_time || (Time.zone.now - auth_time) > max_age
-            reauthenticate_oidc_resource_owner(owner)
-          end
+          return unless !auth_time || (Time.zone.now - auth_time) > max_age
+
+          reauthenticate_oidc_resource_owner(owner)
         end
 
         def return_without_oidc_prompt_param(prompt_value)
           return_to = URI.parse(request.path)
           return_to.query = request.query_parameters.tap do |params|
-            params['prompt'] = params['prompt'].to_s.sub(/\b#{prompt_value}\s*\b/, '').strip
-            params.delete('prompt') if params['prompt'].blank?
+            params["prompt"] = params["prompt"].to_s.sub(/\b#{prompt_value}\s*\b/, "").strip
+            params.delete("prompt") if params["prompt"].blank?
           end.to_query
           return_to.to_s
         end
@@ -135,7 +135,7 @@ module Doorkeeper
 
         def reauthenticate_oidc_resource_owner(owner)
           clear_oidc_response
-          return_to = return_without_oidc_prompt_param('login')
+          return_to = return_without_oidc_prompt_param("login")
 
           instance_exec(
             owner,
@@ -152,7 +152,7 @@ module Doorkeeper
 
         def select_account_for_oidc_resource_owner(owner)
           clear_oidc_response
-          return_to = return_without_oidc_prompt_param('select_account')
+          return_to = return_without_oidc_prompt_param("select_account")
 
           instance_exec(
             owner,

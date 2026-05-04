@@ -13,7 +13,7 @@ module Doorkeeper
           nonce = openid_request&.nonce
           openid_request&.destroy!
 
-          return unless access_token.includes_scope?('openid')
+          return unless access_token.includes_scope?("openid")
 
           id_token = Doorkeeper::OpenidConnect::IdToken.new(access_token, nonce)
           @response.id_token = id_token

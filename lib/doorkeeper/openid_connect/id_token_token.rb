@@ -26,7 +26,7 @@ module Doorkeeper
       def at_hash
         hashed_token = at_hash_digest.digest(@access_token.token)
         first_half = hashed_token[0...hashed_token.length / 2]
-        Base64.urlsafe_encode64(first_half).tr('=', '')
+        Base64.urlsafe_encode64(first_half).tr("=", "")
       end
 
       def at_hash_digest

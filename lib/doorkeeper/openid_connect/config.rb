@@ -4,7 +4,8 @@ module Doorkeeper
   module OpenidConnect
     def self.configure(&block)
       if Doorkeeper.configuration.orm != :active_record
-        raise Errors::InvalidConfiguration, 'Doorkeeper OpenID Connect currently only supports the ActiveRecord ORM adapter'
+        raise Errors::InvalidConfiguration,
+"Doorkeeper OpenID Connect currently only supports the ActiveRecord ORM adapter"
       end
 
       @config = Config::Builder.new(&block).build
@@ -26,11 +27,11 @@ module Doorkeeper
         end
 
         def jws_public_key(*_args)
-          puts 'DEPRECATION WARNING: `jws_public_key` is not needed anymore and will be removed in a future version, please remove it from config/initializers/doorkeeper_openid_connect.rb'
+          puts "DEPRECATION WARNING: `jws_public_key` is not needed anymore and will be removed in a future version, please remove it from config/initializers/doorkeeper_openid_connect.rb"
         end
 
         def jws_private_key(*args)
-          puts 'DEPRECATION WARNING: `jws_private_key` has been replaced by `signing_key` and will be removed in a future version, please remove it from config/initializers/doorkeeper_openid_connect.rb'
+          puts "DEPRECATION WARNING: `jws_private_key` has been replaced by `signing_key` and will be removed in a future version, please remove it from config/initializers/doorkeeper_openid_connect.rb"
           signing_key(*args)
         end
       end
@@ -45,23 +46,23 @@ module Doorkeeper
       option :subject_types_supported, default: [:public]
 
       option :resource_owner_from_access_token, default: lambda { |*_|
-        raise Errors::InvalidConfiguration, I18n.translate('doorkeeper.openid_connect.errors.messages.resource_owner_from_access_token_not_configured')
+        raise Errors::InvalidConfiguration, I18n.translate("doorkeeper.openid_connect.errors.messages.resource_owner_from_access_token_not_configured")
       }
 
       option :auth_time_from_resource_owner, default: lambda { |*_|
-        raise Errors::InvalidConfiguration, I18n.translate('doorkeeper.openid_connect.errors.messages.auth_time_from_resource_owner_not_configured')
+        raise Errors::InvalidConfiguration, I18n.translate("doorkeeper.openid_connect.errors.messages.auth_time_from_resource_owner_not_configured")
       }
 
       option :reauthenticate_resource_owner, default: lambda { |*_|
-        raise Errors::InvalidConfiguration, I18n.translate('doorkeeper.openid_connect.errors.messages.reauthenticate_resource_owner_not_configured')
+        raise Errors::InvalidConfiguration, I18n.translate("doorkeeper.openid_connect.errors.messages.reauthenticate_resource_owner_not_configured")
       }
 
       option :select_account_for_resource_owner, default: lambda { |*_|
-        raise Errors::InvalidConfiguration, I18n.translate('doorkeeper.openid_connect.errors.messages.select_account_for_resource_owner_not_configured')
+        raise Errors::InvalidConfiguration, I18n.translate("doorkeeper.openid_connect.errors.messages.select_account_for_resource_owner_not_configured")
       }
 
       option :subject, default: lambda { |*_|
-        raise Errors::InvalidConfiguration, I18n.translate('doorkeeper.openid_connect.errors.messages.subject_not_configured')
+        raise Errors::InvalidConfiguration, I18n.translate("doorkeeper.openid_connect.errors.messages.subject_not_configured")
       }
 
       option :expiration, default: 120
@@ -82,7 +83,7 @@ module Doorkeeper
 
       option :dynamic_client_registration, default: false
 
-      option :open_id_request_class, default: 'Doorkeeper::OpenidConnect::Request'
+      option :open_id_request_class, default: "Doorkeeper::OpenidConnect::Request"
 
       # Doorkeeper OpenID Request model class.
       #
