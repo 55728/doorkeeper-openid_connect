@@ -22,6 +22,7 @@ OpenID Connect is a single-sign-on and identity layer with a [growing list of se
   - [Routes](#routes)
   - [Nonces](#nonces)
   - [Internationalization (I18n)](#internationalization-i18n)
+  - [Dynamic Client Registration](#dynamic-client-registration)
 - [Development](#development)
 - [License](#license)
 - [Sponsors](#sponsors)
@@ -310,6 +311,41 @@ Then tweak the template as follows:
 ### Internationalization (I18n)
 
 We use Rails locale files for error messages and scope descriptions, see [config/locales/en.yml](config/locales/en.yml). You can override these by adding them to your own translations in `config/locale`.
+
+### Dynamic Client Registration
+
+This gem supports [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) based on [RFC 7591](https://www.rfc-editor.org/rfc/rfc7591).
+
+To enable dynamic client registration, add the following to `config/initializers/doorkeeper_openid_connect.rb`:
+
+```ruby
+Doorkeeper::OpenidConnect.configure do
+  # ...
+  dynamic_client_registration true
+  # ...
+end
+```
+
+This exposes a `POST /oauth/registration` endpoint where OAuth clients can register themselves.
+
+#### Supported parameters
+
+The registration endpoint currently accepts the following [RFC 7591 §2](https://www.rfc-editor.org/rfc/rfc7591#section-2) parameters:
+
+| Parameter | Description |
+| --- | --- |
+| `client_name` | Human-readable name of the client |
+| `redirect_uris` | Array of redirection URIs |
+| `scope` | Space-delimited list of requested scopes |
+| `token_endpoint_auth_method` | Requested authentication method. Defaults to `client_secret_basic`. `none` is always allowed (and registers a public client); other allowed values depend on the host application's Doorkeeper `client_credentials_methods` configuration. Unsupported values are rejected with `invalid_client_metadata`. |
+
+When `token_endpoint_auth_method` is set to `none`, the client is registered as **public** (i.e. `confidential: false`). For all other values — or when the parameter is omitted — the client is registered as **confidential**, matching the RFC 7591 default of `client_secret_basic`.
+
+For `application_type`, `response_types`, and `grant_types`, the endpoint returns server-side defaults regardless of what the client requests. Other RFC 7591 parameters (e.g. `client_uri`, `logo_uri`, `contacts`) are silently ignored and not included in the response. See [#249](https://github.com/doorkeeper-gem/doorkeeper-openid_connect/issues/249) for progress on full RFC 7591 compliance.
+
+#### Security note
+
+The registration endpoint does **not** require an Initial Access Token ([RFC 7591 §3.1](https://www.rfc-editor.org/rfc/rfc7591#section-3.1)). Any unauthenticated request can register a new client. If this is a concern for your deployment, consider protecting the endpoint at the network or application level (e.g. rate limiting, IP allowlisting, or a `before_action` in a custom controller).
 
 ## Development
 
