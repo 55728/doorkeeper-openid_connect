@@ -25,8 +25,12 @@ require "doorkeeper/openid_connect/version"
 
 require "doorkeeper/openid_connect/helpers/controller"
 
+require "doorkeeper/openid_connect/grant_types_supported_mixin"
+require "doorkeeper/openid_connect/token_endpoint_auth_methods_supported_mixin"
+
 require "doorkeeper/openid_connect/oauth/authorization/code"
 require "doorkeeper/openid_connect/oauth/authorization_code_request"
+require "doorkeeper/openid_connect/oauth/dynamic_registration_request"
 require "doorkeeper/openid_connect/oauth/password_access_token_request"
 require "doorkeeper/openid_connect/oauth/pre_authorization"
 require "doorkeeper/openid_connect/oauth/token_response"
