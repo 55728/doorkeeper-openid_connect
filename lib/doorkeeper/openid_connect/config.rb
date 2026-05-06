@@ -83,6 +83,8 @@ module Doorkeeper
 
       option :dynamic_client_registration, default: false
 
+      option :dynamic_client_registration_authorization, default: nil
+
       option :open_id_request_class, default: "Doorkeeper::OpenidConnect::Request"
 
       # Doorkeeper OpenID Request model class.
