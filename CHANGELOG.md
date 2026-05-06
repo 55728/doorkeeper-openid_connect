@@ -14,6 +14,7 @@
 - [#263] **Security/Breaking:** Determine dynamically registered client's `confidential` flag from `token_endpoint_auth_method` per RFC 7591 — previously every dynamically registered client was created as public (`confidential: false`), which let callers authenticate with only `client_id` (`by_uid_and_secret(uid, nil)` bypass). Default is now `client_secret_basic` (confidential); `none` produces a public client; unsupported values (e.g. `private_key_jwt`) are rejected with `invalid_client_metadata`. Also derive `token_endpoint_auth_methods_supported` in the response from `Doorkeeper.configuration.client_credentials_methods` instead of a hardcoded list, matching #236
 - [#264] Apply safe RuboCop autocorrections and fix resulting artifacts
 - [#265] Add Dynamic Client Registration section to README
+- [#266] Validate `application_type`, `response_types`, and `grant_types` parameters in dynamic client registration per RFC 7591 — reject unsupported values with `invalid_client_metadata` and echo the requested values back in the registration response, instead of silently ignoring them and returning the server's global configuration
 
 ## v1.9.0 (2026-03-16)
 

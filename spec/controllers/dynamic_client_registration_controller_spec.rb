@@ -196,6 +196,105 @@ describe Doorkeeper::OpenidConnect::DynamicClientRegistrationController, type: :
       end
     end
 
+    context "when application_type is native" do
+      it "echoes application_type back in the response" do
+        post :register, params: {
+          client_name: "native_client",
+          redirect_uris: redirect_uris,
+          scope: "public",
+          application_type: "native",
+        }
+
+        expect(response.status).to eq 201
+        body = JSON.parse(response.body)
+        expect(body["application_type"]).to eq("native")
+      end
+    end
+
+    context "when application_type is not supported" do
+      it "rejects the request with invalid_client_metadata" do
+        post :register, params: {
+          client_name: "weird_client",
+          redirect_uris: redirect_uris,
+          scope: "public",
+          application_type: "service",
+        }
+
+        expect(response.status).to eq 400
+        expect(Doorkeeper::Application.count).to eq(0)
+
+        body = JSON.parse(response.body)
+        expect(body["error"]).to eq("invalid_client_metadata")
+        expect(body["error_description"]).to include("application_type 'service'")
+      end
+    end
+
+    context "when response_types is a subset of the server's supported types" do
+      it "echoes the requested response_types back in the response" do
+        post :register, params: {
+          client_name: "code_only_client",
+          redirect_uris: redirect_uris,
+          scope: "public",
+          response_types: ["code"],
+        }
+
+        expect(response.status).to eq 201
+        body = JSON.parse(response.body)
+        expect(body["response_types"]).to eq(["code"])
+      end
+    end
+
+    context "when response_types contains an unsupported value" do
+      it "rejects the request with invalid_client_metadata" do
+        post :register, params: {
+          client_name: "bad_response_type_client",
+          redirect_uris: redirect_uris,
+          scope: "public",
+          response_types: %w[code unsupported_type],
+        }
+
+        expect(response.status).to eq 400
+        expect(Doorkeeper::Application.count).to eq(0)
+
+        body = JSON.parse(response.body)
+        expect(body["error"]).to eq("invalid_client_metadata")
+        expect(body["error_description"]).to include("unsupported_type")
+      end
+    end
+
+    context "when grant_types is a subset of the server's supported types" do
+      it "echoes the requested grant_types back in the response" do
+        post :register, params: {
+          client_name: "code_grant_client",
+          redirect_uris: redirect_uris,
+          scope: "public",
+          grant_types: ["authorization_code"],
+        }
+
+        expect(response.status).to eq 201
+        body = JSON.parse(response.body)
+        expect(body["grant_types"]).to eq(["authorization_code"])
+      end
+    end
+
+    context "when grant_types contains an unsupported value" do
+      it "rejects the request with invalid_client_metadata" do
+        post :register, params: {
+          client_name: "bad_grant_client",
+          redirect_uris: redirect_uris,
+          scope: "public",
+          grant_types: %w[authorization_code password],
+        }
+
+        expect(response.status).to eq 400
+        expect(Doorkeeper::Application.count).to eq(0)
+
+        body = JSON.parse(response.body)
+        expect(body["error"]).to eq("invalid_client_metadata")
+        expect(body["error_description"]).to include("password")
+      end
+    end
+
     context "with invalid redirect_uris" do
       it "errors and returns errors" do
         post :register, params: {
