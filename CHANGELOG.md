@@ -22,6 +22,7 @@
 - [#270] Document the unified issuer block signature in README
 - [#278] Test against Ruby 4.0.
 - [#271] **Security:** Add `auth_time_from_session` config for per-session `max_age` enforcement. The legacy `auth_time_from_resource_owner` cannot distinguish between concurrent sessions and is now deprecated for `max_age` use (see [#150](https://github.com/doorkeeper-gem/doorkeeper-openid_connect/issues/150))
+- [#279] Return `account_selection_required` when a `prompt=select_account` handler does not generate a response, per [OIDC Core 1.0 §3.1.2.6](https://openid.net/specs/openid-connect-core-1_0.html#AuthError) — previously the authorization silently continued without account selection. Adds the missing `Errors::AccountSelectionRequired` class, mirroring the existing `login_required` backstop for `reauthenticate_resource_owner`
 
 ## v1.9.0 (2026-03-16)
 
