@@ -22,6 +22,7 @@
 - [#270] Document the unified issuer block signature in README
 - [#278] Test against Ruby 4.0.
 - [#271] **Security:** Add `auth_time_from_session` config for per-session `max_age` enforcement. The legacy `auth_time_from_resource_owner` cannot distinguish between concurrent sessions and is now deprecated for `max_age` use (see [#150](https://github.com/doorkeeper-gem/doorkeeper-openid_connect/issues/150))
+- [#281] Fix `NoMethodError` / `DoubleRenderError` when `resource_owner_authenticator` redirects with a truthy non-model value (e.g. `current_user || redirect_to(login_url)`). Normalize the leaked value to `nil` when `performed?` and add missing `if owner` guard on `select_account`.
 
 ## v1.9.0 (2026-03-16)
 
