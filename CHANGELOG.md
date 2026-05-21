@@ -26,6 +26,7 @@
 - [#273] **Security/Hardening:** Merge framework-controlled registered claims last — `iss`/`sub`/`aud`/`exp`/`iat`/`nonce`/`auth_time` for the ID Token and `sub` for UserInfo — so a custom claim block can no longer override security-critical values. No legitimate configuration relied on this; custom claims that intentionally shadowed a registered claim name will now be ignored for that key (OIDC Core §2 / §3.1.3.7 / §5.3.2).
 - [#276] Get RuboCop to zero offenses: fix `Lint/MissingSuper` in `IdTokenResponse`, replace `puts` with `warn` for deprecation notices, and modernise spec style
 - [#277] Fix README inaccuracies (`signing_algorithm` description and link, `discovery_url_options` endpoint list, `oauth-authorization-server` route) and use constant-time comparison in the DCR authorization example to prevent timing attacks on the Initial Access Token
+- [#275] Return `login_required` for `max_age` reauthentication when `prompt=none`, instead of triggering the interactive `reauthenticate_resource_owner` flow (OIDC Core §3.1.2.1)
 
 ## v1.9.0 (2026-03-16)
 
